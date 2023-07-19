@@ -1,0 +1,3 @@
+C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/CMakeFiles/sfml-populate.dir
+C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/CMakeFiles/edit_cache.dir
+C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/CMakeFiles/rebuild_cache.dir
