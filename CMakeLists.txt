@@ -7,7 +7,7 @@ FetchContent_Declare(SFML
     GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(sfml-template src/main.cpp src/Snake.cpp src/Snake.hpp src/Snake.hpp)
+add_executable(sfml-template src/main.cpp src/SnakeHead.cpp src/SnakeHead.hpp src/SnakeHead.hpp src/SnakeBody.cpp src/SnakeBody.hpp src/SnakeBody.hpp src/constants.hpp src/Apple.cpp src/Apple.hpp src/Apple.hpp)
 target_link_libraries(sfml-template PRIVATE sfml-graphics)
 target_compile_features(sfml-template PRIVATE cxx_std_17)
 if (WIN32 AND BUILD_SHARED_LIBS)
