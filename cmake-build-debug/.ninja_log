@@ -45,7 +45,7 @@
 3316	5775	7110403926714245	_deps/sfml-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Win32/VideoModeImpl.cpp.obj	afdc5a6672ace75e
 3569	3675	7110403905756264	_deps/sfml-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Win32/SensorImpl.cpp.obj	fa74ef3ad4656e05
 5	782	7112226109097698	CMakeFiles/sfml-template.dir/src/Blocks.cpp.obj	ee55107bfbe2c8c3
-5	968	7112332339306261	CMakeFiles/sfml-template.dir/src/main.cpp.obj	7ad32b15c156f3a5
+5	742	7118169008639337	CMakeFiles/sfml-template.dir/src/main.cpp.obj	7ad32b15c156f3a5
 1332	4131	7110403910276136	_deps/sfml-build/src/SFML/Window/CMakeFiles/sfml-window.dir/JoystickManager.cpp.obj	b34601b045fb82ee
 5110	6208	7110403930974467	_deps/sfml-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/Image.cpp.obj	be70d561d53f8db3
 1659	4549	7110403914320216	_deps/sfml-build/src/SFML/Window/CMakeFiles/sfml-window.dir/Joystick.cpp.obj	3e86903f211f7b31
@@ -83,9 +83,12 @@
 7258	8177	7110403950764484	_deps/sfml-build/src/SFML/Graphics/CMakeFiles/sfml-graphics.dir/RenderTextureImplFBO.cpp.obj	3368c516109dbf15
 8177	8585	7110403954817390	_deps/sfml-build/lib/sfml-graphics-d-2.dll	ee28ce810b70d315
 8177	8585	7110403954817390	_deps/sfml-build/lib/libsfml-graphics-d.a	ee28ce810b70d315
-968	1204	7112332341174976	sfml-template.exe	bbcfe4e4ec786e4e
+742	908	7118169009796241	sfml-template.exe	fc1a1414b42c1062
 5	775	7112248467282143	CMakeFiles/sfml-template.dir/src/Platform.cpp.obj	5843932f9271ce6d
-6	771	7118166344800245	CMakeFiles/sfml-template.dir/src/main.cpp.obj	7ad32b15c156f3a5
-772	1176	7118166347285359	sfml-template.exe	fc1a1414b42c1062
-4	756	7118166551843334	CMakeFiles/sfml-template.dir/src/main.cpp.obj	7ad32b15c156f3a5
-757	922	7118166553000509	sfml-template.exe	fc1a1414b42c1062
+19	757	7118182115115376	CMakeFiles/sfml-template.dir/src/GridCell.cpp.obj	cadf9d67188d1c03
+5	851	7118182116052874	CMakeFiles/sfml-template.dir/src/main.cpp.obj	7ad32b15c156f3a5
+851	1030	7118182117349686	sfml-template.exe	d06e81e5b46630f
+5	812	7118182258281676	CMakeFiles/sfml-template.dir/src/main.cpp.obj	7ad32b15c156f3a5
+813	987	7118182259540674	sfml-template.exe	d06e81e5b46630f
+5	859	7118182835447015	CMakeFiles/sfml-template.dir/src/main.cpp.obj	7ad32b15c156f3a5
+860	1056	7118182836783474	sfml-template.exe	d06e81e5b46630f
