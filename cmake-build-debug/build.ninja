@@ -56,27 +56,6 @@ build CMakeFiles/sfml-template.dir/src/main.cpp.obj: CXX_COMPILER__sfml-template
   OBJECT_DIR = CMakeFiles\sfml-template.dir
   OBJECT_FILE_DIR = CMakeFiles\sfml-template.dir\src
 
-build CMakeFiles/sfml-template.dir/src/Ball.cpp.obj: CXX_COMPILER__sfml-template_Debug C$:/Users/Skorteyy/Desktop/Mape/CLION$ C++$ projekti/sfml-template/src/Ball.cpp || cmake_object_order_depends_target_sfml-template
-  DEP_FILE = CMakeFiles\sfml-template.dir\src\Ball.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I"C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-src/include"
-  OBJECT_DIR = CMakeFiles\sfml-template.dir
-  OBJECT_FILE_DIR = CMakeFiles\sfml-template.dir\src
-
-build CMakeFiles/sfml-template.dir/src/Platform.cpp.obj: CXX_COMPILER__sfml-template_Debug C$:/Users/Skorteyy/Desktop/Mape/CLION$ C++$ projekti/sfml-template/src/Platform.cpp || cmake_object_order_depends_target_sfml-template
-  DEP_FILE = CMakeFiles\sfml-template.dir\src\Platform.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I"C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-src/include"
-  OBJECT_DIR = CMakeFiles\sfml-template.dir
-  OBJECT_FILE_DIR = CMakeFiles\sfml-template.dir\src
-
-build CMakeFiles/sfml-template.dir/src/Blocks.cpp.obj: CXX_COMPILER__sfml-template_Debug C$:/Users/Skorteyy/Desktop/Mape/CLION$ C++$ projekti/sfml-template/src/Blocks.cpp || cmake_object_order_depends_target_sfml-template
-  DEP_FILE = CMakeFiles\sfml-template.dir\src\Blocks.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I"C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-src/include"
-  OBJECT_DIR = CMakeFiles\sfml-template.dir
-  OBJECT_FILE_DIR = CMakeFiles\sfml-template.dir\src
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target sfml-template
@@ -85,7 +64,7 @@ build CMakeFiles/sfml-template.dir/src/Blocks.cpp.obj: CXX_COMPILER__sfml-templa
 #############################################
 # Link the executable sfml-template.exe
 
-build sfml-template.exe: CXX_EXECUTABLE_LINKER__sfml-template_Debug CMakeFiles/sfml-template.dir/src/main.cpp.obj CMakeFiles/sfml-template.dir/src/Ball.cpp.obj CMakeFiles/sfml-template.dir/src/Platform.cpp.obj CMakeFiles/sfml-template.dir/src/Blocks.cpp.obj | _deps/sfml-build/lib/libsfml-graphics-d.a _deps/sfml-build/lib/libsfml-window-d.a _deps/sfml-build/lib/libsfml-system-d.a || _deps/sfml-build/lib/sfml-graphics-d-2.dll _deps/sfml-build/lib/sfml-system-d-2.dll _deps/sfml-build/lib/sfml-window-d-2.dll
+build sfml-template.exe: CXX_EXECUTABLE_LINKER__sfml-template_Debug CMakeFiles/sfml-template.dir/src/main.cpp.obj | _deps/sfml-build/lib/libsfml-graphics-d.a _deps/sfml-build/lib/libsfml-window-d.a _deps/sfml-build/lib/libsfml-system-d.a || _deps/sfml-build/lib/sfml-graphics-d-2.dll _deps/sfml-build/lib/sfml-system-d-2.dll _deps/sfml-build/lib/sfml-window-d-2.dll
   FLAGS = -g
   LINK_LIBRARIES = _deps/sfml-build/lib/libsfml-graphics-d.a  _deps/sfml-build/lib/libsfml-window-d.a  _deps/sfml-build/lib/libsfml-system-d.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\sfml-template.dir
