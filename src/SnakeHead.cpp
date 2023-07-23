@@ -23,8 +23,8 @@ sf::Vector2i SnakeHead::getLastMoveDirection() const {
 
 sf::Vector2i SnakeHead::getGridPosition() const {
     sf::Vector2i temp;
-    temp.x = component.getPosition().x / GRIDSIZE;
-    temp.x = component.getPosition().x / GRIDSIZE;
+    temp.x = this->getX() / GRIDSIZE;
+    temp.x = this->getY() / GRIDSIZE;
     return temp;
 }
 
@@ -33,7 +33,11 @@ sf::Vector2f SnakeHead::getPosition() const {
 }
 
 void SnakeHead::setPosition(float mX, float mY) {
-    component.setPosition(mX, mY);
+    component.setPosition(mX * GRIDSIZE, mY * GRIDSIZE);
+}
+
+void SnakeHead::setPosition(sf::Vector2i position) {
+    component.setPosition(position.x, position.y);
 }
 
 void SnakeHead::updatePosition(sf::Vector2i position) {

@@ -8,12 +8,13 @@ constexpr int COMPONENTSIZE = 20;
 class SnakeBody {
 private:
     sf::RectangleShape component;
-    sf::Vector2i direction = {1, 0};
+    sf::Vector2i direction;
 public:
-    SnakeBody(float mX, float mY) {
+    SnakeBody(float mX, float mY, sf::Vector2i direction) {
         component.setPosition(mX * GRIDSIZE, mY * GRIDSIZE);
         component.setSize(sf::Vector2f(COMPONENTSIZE, COMPONENTSIZE));
         component.setFillColor(sf::Color(144,238,144)); // Light green color instead of green to differentiate body and head
+        this->direction = direction;
     }
     ~SnakeBody() = default;
 

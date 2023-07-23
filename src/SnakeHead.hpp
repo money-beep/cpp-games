@@ -27,6 +27,7 @@ public:
     sf::Vector2f getPosition() const;
 
     void setPosition(float mX, float mY);
+    void setPosition(sf::Vector2i position);
 
     void updatePosition(sf::Vector2i position);
     void updateDirection();
