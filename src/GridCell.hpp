@@ -11,7 +11,7 @@ private:
     bool bomb;
 public:
     GridCell(int mX, int mY){
-        cell.setPosition(mX * GRIDSIZE, mY * GRIDSIZE);
+        cell.setPosition(mX, mY);
         cell.setSize(sf::Vector2f(GRIDSIZE-1, GRIDSIZE-1));
         cell.setFillColor(sf::Color(174, 178, 184));
 

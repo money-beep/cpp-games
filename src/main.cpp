@@ -1,20 +1,25 @@
 #include "iostream"
+#include "queue"
 #include <SFML/Graphics.hpp>
 #include "random"
 #include "constants.hpp"
 #include "GridCell.hpp"
 
+int BOMBNUMBER = 10, BOARDSIZE = 9;
+
+bool isAllRevealed = false;
+
 // Function to randomly generate bombs across the grid
-void generateBombs(std::vector<std::vector<GridCell>> &grid, std::vector<std::vector<sf::Text>> &gridText, const int numberOfBombs) {
+void generateBombs(std::vector<std::vector<GridCell>> &grid, std::vector<std::vector<sf::Text>> &gridText) {
     // rng engine
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> rowDist(0, 9 - 1);
-    std::uniform_int_distribution<int> colDist(0, 9 - 1);
+    std::uniform_int_distribution<int> rowDist(0, BOARDSIZE - 1);
+    std::uniform_int_distribution<int> colDist(0, BOARDSIZE - 1);
 
     // Place bombs randomly in the matrix
     int bombsPlaced = 0;
-    while (bombsPlaced < numberOfBombs) {
+    while (bombsPlaced < BOMBNUMBER) {
         // generate random rows and columns
         int randomRow = rowDist(gen);
         int randomCol = colDist(gen);
@@ -36,7 +41,7 @@ void generateBombs(std::vector<std::vector<GridCell>> &grid, std::vector<std::ve
 
 // switch statement for changing colors of numbers, and also give
 // different string if there are no adjacent bombs (ABBA - easier to test)
-void setNumberToText(sf::Text &text, const int &numberOfAdjacentBombs){
+void setNumberToText(sf::Text &text, const int &numberOfAdjacentBombs) {
     switch (numberOfAdjacentBombs) {
         case 1:
             text.setFillColor(sf::Color::Blue);
@@ -60,13 +65,13 @@ void setNumberToText(sf::Text &text, const int &numberOfAdjacentBombs){
             text.setFillColor(sf::Color::Black);
             break;
         default:
-            text.setFillColor(sf::Color(255,255,255,0));
+            text.setFillColor(sf::Color(255, 255, 255, 0));
             break;
     }
     // int to string
     std::string temp = std::to_string(numberOfAdjacentBombs);
-    if(numberOfAdjacentBombs == 0){
-        temp = "ABBA";
+    if (numberOfAdjacentBombs == 0) {
+        temp = "ABBA"; // code for when the cell is surrounded by 0 bombs
     }
     text.setString(temp);
 }
@@ -75,8 +80,8 @@ void setNumberToText(sf::Text &text, const int &numberOfAdjacentBombs){
 void generateNumbers(std::vector<std::vector<GridCell>> &grid, std::vector<std::vector<sf::Text>> &gridText) {
     int numberOfAdjacentBombs = 0;
 
-    for (int i = 0; i < 9; ++i) {
-        for (int j = 0; j < 9; ++j) {
+    for (int i = 0; i < BOARDSIZE; ++i) {
+        for (int j = 0; j < BOARDSIZE; ++j) {
             if (!grid[i][j].isBomb()) {
                 numberOfAdjacentBombs = 0;
                 // Check if cell above is bomb
@@ -84,7 +89,7 @@ void generateNumbers(std::vector<std::vector<GridCell>> &grid, std::vector<std::
                     numberOfAdjacentBombs++;
                 }
                 // Check if cell bellow is bomb
-                if (i != 8 && grid[i + 1][j].isBomb()) {
+                if (i != BOARDSIZE - 1 && grid[i + 1][j].isBomb()) {
                     numberOfAdjacentBombs++;
                 }
                 // Check if cell left is bomb
@@ -92,7 +97,7 @@ void generateNumbers(std::vector<std::vector<GridCell>> &grid, std::vector<std::
                     numberOfAdjacentBombs++;
                 }
                 // Check if cell right is bomb
-                if (j != 8 && grid[i][j + 1].isBomb()) {
+                if (j != BOARDSIZE - 1 && grid[i][j + 1].isBomb()) {
                     numberOfAdjacentBombs++;
                 }
                 // Check if bomb left above is bomb
@@ -100,15 +105,15 @@ void generateNumbers(std::vector<std::vector<GridCell>> &grid, std::vector<std::
                     numberOfAdjacentBombs++;
                 }
                 // Check if bomb right above is bomb
-                if (i != 0 && j != 8 && grid[i - 1][j + 1].isBomb()) {
+                if (i != 0 && j != BOARDSIZE - 1 && grid[i - 1][j + 1].isBomb()) {
                     numberOfAdjacentBombs++;
                 }
                 // Check if bomb left bellow is bomb
-                if(i != 8 && j != 0 && grid[i+1][j-1].isBomb()){
+                if (i != BOARDSIZE - 1 && j != 0 && grid[i + 1][j - 1].isBomb()) {
                     numberOfAdjacentBombs++;
                 }
                 // Check if bomb right bellow is bomb
-                if(i != 8 && j != 8 && grid[i+1][j+1].isBomb()){
+                if (i != BOARDSIZE - 1 && j != BOARDSIZE - 1 && grid[i + 1][j + 1].isBomb()) {
                     numberOfAdjacentBombs++;
                 }
                 // call function to turn int to string and change colors
@@ -119,10 +124,21 @@ void generateNumbers(std::vector<std::vector<GridCell>> &grid, std::vector<std::
 
 }
 
-// draw text and cells
-void drawGrid(const std::vector<std::vector<GridCell>> &grid, const std::vector<std::vector<sf::Text>> &gridText, sf::RenderWindow &window) {
-    for (int i = 0; i < 9; ++i) {
-        for (int j = 0; j < 9; ++j) {
+// draw starting text
+void drawStartText(const sf::Text &startGameText, const sf::Text &quitText, const std::vector<sf::Text> &difficultyText,
+                   sf::RenderWindow &window) {
+    window.draw(startGameText);
+    for (int i = 0; i < 3; ++i) {
+        window.draw(difficultyText[i]);
+    }
+    window.draw(quitText);
+}
+
+// draw game text and grid cells
+void drawGrid(const std::vector<std::vector<GridCell>> &grid, const std::vector<std::vector<sf::Text>> &gridText,
+              sf::RenderWindow &window) {
+    for (int i = 0; i < BOARDSIZE; ++i) {
+        for (int j = 0; j < BOARDSIZE; ++j) {
             window.draw(grid[i][j].getShape());
             if (grid[i][j].isRevealed())
                 window.draw(gridText[i][j]);
@@ -131,9 +147,11 @@ void drawGrid(const std::vector<std::vector<GridCell>> &grid, const std::vector<
 }
 
 // Recursive algorithm that checks if there are empty cells yet to be revealed and are close together.
-void floodFill(std::vector<std::vector<GridCell>> &grid, std::vector<std::vector<sf::Text>> &gridText, const int row, const int col, int first) {
+void floodFill(std::vector<std::vector<GridCell>> &grid, std::vector<std::vector<sf::Text>> &gridText, int row, int col,
+               int first) {
     // Check if the cell is within the grid and not revealed or a bomb
-    if ((first == 0) || (row >= 0 && row < 9 && col >= 0 && col < 9 && !grid[row][col].isRevealed() && !grid[row][col].isBomb())) {
+    if ((first == 0) || (row >= 0 && row < BOARDSIZE && col >= 0 && col < BOARDSIZE && !grid[row][col].isRevealed() &&
+                         !grid[row][col].isBomb())) {
         // Reveal the cell, and set fill color
         grid[row][col].setFillColor(sf::Color(73, 73, 74));
         grid[row][col].setRevealed(true);
@@ -143,18 +161,29 @@ void floodFill(std::vector<std::vector<GridCell>> &grid, std::vector<std::vector
 
         // If the cell has no adjacent bombs, call floodFill for its neighbors
         if (gridText[row][col].getString() == "ABBA") {
-            floodFill(grid, gridText,row - 1, col, first); // Top
-            floodFill(grid, gridText,row + 1, col, first); // Bottom
+            floodFill(grid, gridText, row - 1, col, first); // Top
+            floodFill(grid, gridText, row + 1, col, first); // Bottom
             floodFill(grid, gridText, row, col - 1, first); // Left
             floodFill(grid, gridText, row, col + 1, first); // Right
         }
     }
 }
 
+void revealAll(std::vector<std::vector<GridCell>> &grid) {
+    for (int i = 0; i < BOARDSIZE; ++i) {
+        for (int j = 0; j < BOARDSIZE; ++j) {
+            grid[i][j].setRevealed(true);
+            grid[i][j].setFillColor(sf::Color(73, 73, 74));
+            isAllRevealed = true;
+        }
+    }
+}
+
 // Every time there is a mouse click event, it checks if it was in cells coordinates
-void testPositionMouseCell(std::vector<std::vector<GridCell>> &grid, std::vector<std::vector<sf::Text>> &gridText,sf::Event &gameEvent) {
-    for (int i = 0; i < 9; ++i) {
-        for (int j = 0; j < 9; ++j) {
+void testPositionMouseCell(std::vector<std::vector<GridCell>> &grid, std::vector<std::vector<sf::Text>> &gridText,
+                           sf::Event &gameEvent) {
+    for (int i = 0; i < BOARDSIZE; ++i) {
+        for (int j = 0; j < BOARDSIZE; ++j) {
             if (grid[i][j].getGlobalBounds().contains(gameEvent.mouseButton.x,
                                                       gameEvent.mouseButton.y)) {
                 grid[i][j].setFillColor(sf::Color(73, 73, 74));
@@ -163,18 +192,22 @@ void testPositionMouseCell(std::vector<std::vector<GridCell>> &grid, std::vector
                 if (!grid[i][j].isBomb() && gridText[i][j].getString() == "ABBA") {
                     floodFill(grid, gridText, i, j, 0);
                 }
+                if (grid[i][j].isBomb()) {
+                    revealAll(grid);
+                }
             }
         }
     }
 }
 
-void setFlagCell(std::vector<std::vector<GridCell>> &grid, sf::Event &gameEvent){
-    for (int i = 0; i < 9; ++i) {
-        for (int j = 0; j < 9; ++j) {
+// for setting flag cell (just setting fill color to red or back to gray)
+void setFlagCell(std::vector<std::vector<GridCell>> &grid, sf::Event &gameEvent) {
+    for (int i = 0; i < BOARDSIZE; ++i) {
+        for (int j = 0; j < BOARDSIZE; ++j) {
             if (grid[i][j].getGlobalBounds().contains(gameEvent.mouseButton.x,
                                                       gameEvent.mouseButton.y)
-                                                      && !grid[i][j].isRevealed()) {
-                if(grid[i][j].getFillColor() == sf::Color::Red){
+                && !grid[i][j].isRevealed()) {
+                if (grid[i][j].getFillColor() == sf::Color::Red) {
                     grid[i][j].setFillColor(sf::Color(174, 178, 184));
                 } else {
                     grid[i][j].setFillColor(sf::Color::Red);
@@ -184,70 +217,277 @@ void setFlagCell(std::vector<std::vector<GridCell>> &grid, sf::Event &gameEvent)
     }
 }
 
+// generating all needed text for start
+void
+generateText(sf::Text &pointsText, sf::Text &startGameText, std::vector<sf::Text> &difficultyText, sf::Text &quitText,
+             const sf::Font &font) {
+    pointsText.setFont(font);
+    pointsText.setString("Points: 0");
+    pointsText.setFillColor(sf::Color::White);
+    pointsText.setPosition(100, 0);
+
+    startGameText.setFont(font);
+    startGameText.setString("Start game");
+    startGameText.setCharacterSize(40);
+    startGameText.setFillColor(sf::Color::White);
+    startGameText.setPosition(820, 285);
+
+    sf::Text easyDiff;
+    easyDiff.setFont(font);
+    easyDiff.setString("Easy");
+    easyDiff.setCharacterSize(26);
+    easyDiff.setFillColor(sf::Color(143, 161, 247));
+    easyDiff.setPosition(800, 460);
+
+    sf::Text mediumDiff;
+    mediumDiff.setFont(font);
+    mediumDiff.setString("Medium");
+    mediumDiff.setCharacterSize(26);
+    mediumDiff.setFillColor(sf::Color(143, 161, 247));
+    mediumDiff.setPosition(880, 460);
+
+    sf::Text hardDiff;
+    hardDiff.setFont(font);
+    hardDiff.setString("Hard");
+    hardDiff.setCharacterSize(26);
+    hardDiff.setFillColor(sf::Color(143, 161, 247));
+    hardDiff.setPosition(1000, 460);
+
+    difficultyText.push_back(easyDiff);
+    difficultyText.push_back(mediumDiff);
+    difficultyText.push_back(hardDiff);
+
+    quitText.setFont(font);
+    quitText.setString("Quit.");
+    quitText.setCharacterSize(40);
+    quitText.setFillColor(sf::Color::White);
+    quitText.setPosition(880, 600);
+}
+
+// all difficulty settings
+void setDifficultyEasy(std::vector<std::vector<GridCell>> &grid, std::vector<std::vector<sf::Text>> &gridText,
+                       const sf::Font &font) {
+    BOMBNUMBER = 10, BOARDSIZE = 9;
+
+    grid.clear();
+    gridText.clear();
+
+    // Calculate the total width and height of the grid
+    int gridWidth = BOARDSIZE * GRIDSIZE;
+    int gridHeight = BOARDSIZE * GRIDSIZE;
+    // Calculate the starting position to center the grid
+    int startX = (1920 - gridWidth) / 2;
+    int startY = (1080 - gridHeight) / 2;
+
+    std::vector<std::vector<GridCell>> tempGrid(BOARDSIZE, std::vector<GridCell>());
+    for (int i = 0; i < BOARDSIZE; i++) {
+        for (int j = 0; j < BOARDSIZE; j++) {
+            GridCell cell(startX + i * GRIDSIZE, startY + j * GRIDSIZE);
+            tempGrid[i].push_back(cell);
+        }
+    }
+    grid = tempGrid;
+
+    sf::Text temp;
+    temp.setFont(font);
+    temp.setString("");
+    temp.setCharacterSize(12);
+    temp.setFillColor(sf::Color::Magenta);
+
+    float textX = 0;
+    float textY = 0;
+    std::vector<std::vector<sf::Text>> tempText(BOARDSIZE, std::vector<sf::Text>());
+    for (int i = 0; i < BOARDSIZE; i++) {
+        for (int j = 0; j < BOARDSIZE; j++) {
+            textX = startX + i * GRIDSIZE + (GRIDSIZE - temp.getLocalBounds().width) / 2.37f;
+            textY = startY + j * GRIDSIZE + (GRIDSIZE - temp.getLocalBounds().height) / 2.7f;
+            // set position of text to be in center of cell
+            temp.setPosition(textX, textY);
+            tempText[i].push_back(temp);
+        }
+    }
+    gridText = tempText;
+
+    generateBombs(grid, gridText);
+    generateNumbers(grid, gridText);
+}
+
+void setDifficultyMedium(std::vector<std::vector<GridCell>> &grid, std::vector<std::vector<sf::Text>> &gridText,
+                         const sf::Font &font) {
+    BOMBNUMBER = 40, BOARDSIZE = 16;
+
+    grid.clear();
+    gridText.clear();
+
+    int gridWidth = BOARDSIZE * GRIDSIZE;
+    int gridHeight = BOARDSIZE * GRIDSIZE;
+    int startX = (1920 - gridWidth) / 2;
+    int startY = (1080 - gridHeight) / 2;
+
+    std::vector<std::vector<GridCell>> tempGrid(BOARDSIZE, std::vector<GridCell>());
+    for (int i = 0; i < BOARDSIZE; i++) {
+        for (int j = 0; j < BOARDSIZE; j++) {
+            GridCell cell(startX + i * GRIDSIZE, startY + j * GRIDSIZE);
+            tempGrid[i].push_back(cell);
+        }
+    }
+    grid = tempGrid;
+
+    sf::Text temp;
+    temp.setFont(font);
+    temp.setString("");
+    temp.setCharacterSize(12);
+    temp.setFillColor(sf::Color::Magenta);
+
+    float textX = 0;
+    float textY = 0;
+    std::vector<std::vector<sf::Text>> tempText(BOARDSIZE, std::vector<sf::Text>());
+    for (int i = 0; i < BOARDSIZE; i++) {
+        for (int j = 0; j < BOARDSIZE; j++) {
+            textX = startX + i * GRIDSIZE + (GRIDSIZE - temp.getLocalBounds().width) / 2.37f;
+            textY = startY + j * GRIDSIZE + (GRIDSIZE - temp.getLocalBounds().height) / 2.7f;
+            // set position of text to be in center of cell
+            temp.setPosition(textX, textY);
+            tempText[i].push_back(temp);
+        }
+    }
+    gridText = tempText;
+
+    generateBombs(grid, gridText);
+    generateNumbers(grid, gridText);
+}
+
+void setDifficultyHard(std::vector<std::vector<GridCell>> &grid, std::vector<std::vector<sf::Text>> &gridText,
+                       const sf::Font &font) {
+    BOMBNUMBER = 99, BOARDSIZE = 24;
+
+    grid.clear();
+    gridText.clear();
+
+    // doesn't need startY, because the grid gets too big and cannot fit in the window
+    int gridWidth = BOARDSIZE * GRIDSIZE;
+    int startX = (1920 - gridWidth) / 2;
+
+    std::vector<std::vector<GridCell>> tempGrid(BOARDSIZE, std::vector<GridCell>());
+    for (int i = 0; i < BOARDSIZE; i++) {
+        for (int j = 0; j < BOARDSIZE; j++) {
+            GridCell cell(startX + i * GRIDSIZE, j * GRIDSIZE);
+            tempGrid[i].push_back(cell);
+        }
+    }
+    grid = tempGrid;
+
+    sf::Text temp;
+    temp.setFont(font);
+    temp.setString("");
+    temp.setCharacterSize(12);
+    temp.setFillColor(sf::Color::Magenta);
+
+    float textX = 0;
+    float textY = 0;
+    std::vector<std::vector<sf::Text>> tempText(BOARDSIZE, std::vector<sf::Text>());
+    for (int i = 0; i < BOARDSIZE; i++) {
+        for (int j = 0; j < BOARDSIZE; j++) {
+            textX = startX + i * GRIDSIZE + (GRIDSIZE - temp.getLocalBounds().width) / 2.37f;
+            textY = j * GRIDSIZE + (GRIDSIZE - temp.getLocalBounds().height) / 2.7f;
+            // set position of text to be in center of cell
+            temp.setPosition(textX, textY);
+            tempText[i].push_back(temp);
+        }
+    }
+    gridText = tempText;
+
+    generateBombs(grid, gridText);
+    generateNumbers(grid, gridText);
+}
+
 int main() {
-    auto window = sf::RenderWindow{{WIDTHWINDOW, HEIGHTWINDOW}, "Minesweeper"};
+    auto window = sf::RenderWindow{{1920, 1080}, "Minesweeper"};
     window.setFramerateLimit(240);
     sf::Event gameEvent;
 
     sf::Font font;
     font.loadFromFile("C:\\Windows\\Fonts\\arial.ttf");
 
-    std::vector<std::vector<GridCell>> grid(9, std::vector<GridCell>());
-    for (int i = 0; i < 9; i++) {
-        for (int j = 0; j < 9; j++) {
-            GridCell cell(i, j);
-            grid[i].push_back(cell);
-        }
-    }
+    // create grid and gridText vectors to be filled by functions
+    std::vector<std::vector<GridCell>> grid;
+    std::vector<std::vector<sf::Text>> gridText;
 
-    sf::Text tempText;
-    tempText.setFont(font);
-    tempText.setString("");
-    tempText.setCharacterSize(12);
-    tempText.setFillColor(sf::Color::Magenta);
+    // text for starting game menu
+    sf::Text pointsText;
+    sf::Text startGameText;
+    std::vector<sf::Text> difficultyText;
+    sf::Text quitText;
+    // function for generating all text (except gridText, which is generated based on grid size and bomb number)
+    generateText(pointsText, startGameText, difficultyText, quitText, font);
 
-    float textX = 0;
-    float textY = 0;
-    std::vector<std::vector<sf::Text>> gridText(9, std::vector<sf::Text>());
-    for (int i = 0; i < 9; i++) {
-        for (int j = 0; j < 9; j++) {
-            textX = i * GRIDSIZE + (GRIDSIZE - tempText.getLocalBounds().width) / 2.37f;
-            textY = j * GRIDSIZE + (GRIDSIZE - tempText.getLocalBounds().height) / 2.7f;
-            // set position of text to be in center of cell
-            tempText.setPosition(textX, textY);
-            gridText[i].push_back(tempText);
-        }
-    }
+    // Set easy diff for first start
+    setDifficultyEasy(grid, gridText, font);
 
-    int numberOfBombs = 9;
-
-    generateBombs(grid, gridText,numberOfBombs);
-    generateNumbers(grid, gridText);
-    //window.setSize(sf::Vector2u(1060,1060)); Use this function to change size of window based on selected difficulty
-
+    // boolean for starting game
+    bool gameStart = false;
     // Game loop - runs every frame
     while (window.isOpen()) {
-        window.clear(sf::Color::Black);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-            window.close();
-        }
-
-        while (window.pollEvent(gameEvent)) {
-            if (gameEvent.type == sf::Event::Closed) { // if event is window closed
+        window.clear();
+        while (!gameStart) {
+            window.clear();
+            // check if esc is pressed, close window
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                 window.close();
-            } else if (gameEvent.mouseButton.button == sf::Mouse::Left) {
-                if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                    testPositionMouseCell(grid, gridText, gameEvent);
+            }
+            // if there was an event
+            while (window.pollEvent(gameEvent)) {
+                if (gameEvent.type == sf::Event::Closed) { // if event is window closed
+                    window.close();
                 }
-            } else if(gameEvent.mouseButton.button == sf::Mouse::Right){
-                if(sf::Mouse::isButtonPressed(sf::Mouse::Right)){
-                    setFlagCell(grid, gameEvent);
+                    // if left mouse button was pressed
+                else if (gameEvent.mouseButton.button == sf::Mouse::Left) {
+                    // in every if, check the global bounds (coordinates) of text and if the mouse is within those bounds
+                    if (startGameText.getGlobalBounds().contains(gameEvent.mouseButton.x, gameEvent.mouseButton.y)) {
+                        gameStart = true;
+                    } else if (quitText.getGlobalBounds().contains(gameEvent.mouseButton.x, gameEvent.mouseButton.y)) {
+                        window.close();
+                    }
+                        // setting difficulty easy, medium, hard
+                    else if (difficultyText[0].getGlobalBounds().contains(gameEvent.mouseButton.x,
+                                                                          gameEvent.mouseButton.y)) {
+                        setDifficultyEasy(grid, gridText, font);
+                    } else if (difficultyText[1].getGlobalBounds().contains(gameEvent.mouseButton.x,
+                                                                            gameEvent.mouseButton.y)) {
+                        setDifficultyMedium(grid, gridText, font);
+                    } else if (difficultyText[2].getGlobalBounds().contains(gameEvent.mouseButton.x,
+                                                                            gameEvent.mouseButton.y)) {
+                        setDifficultyHard(grid, gridText, font);
+                    }
                 }
             }
+            // draw all starting text
+            drawStartText(startGameText, quitText, difficultyText, window);
+            window.display();
         }
+        while (gameStart) {
+            window.clear();
+            // if esc was pressed go back to start
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) {
+                gameStart = false;
+            }
+            while (window.pollEvent(gameEvent)) {
+                // if left mouse button was pressed, call function to check if it was in a cell, and then do all
+                // the necessary things
+                if (gameEvent.mouseButton.button == sf::Mouse::Left) {
+                    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                        testPositionMouseCell(grid, gridText, gameEvent);
+                    }
+                } else if (gameEvent.mouseButton.button == sf::Mouse::Right) { // same for flag but right mouse button
+                    if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+                        setFlagCell(grid, gameEvent);
+                    }
+                }
+            }
 
-        //window.draw(grid[0][4].getText());
-        drawGrid(grid, gridText, window);
-        window.display(); // Draws to window
+            // draws grid and gridText that isn't yet shown if it is not revealed
+            drawGrid(grid, gridText, window);
+            window.display(); // Draws to window
+        }
     }
 }
