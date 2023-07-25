@@ -218,8 +218,7 @@ void setFlagCell(std::vector<std::vector<GridCell>> &grid, sf::Event &gameEvent)
 }
 
 // generating all needed text for start
-void
-generateText(sf::Text &pointsText, sf::Text &startGameText, std::vector<sf::Text> &difficultyText, sf::Text &quitText,
+void generateText(sf::Text &pointsText, sf::Text &startGameText, std::vector<sf::Text> &difficultyText, sf::Text &quitText,
              const sf::Font &font) {
     pointsText.setFont(font);
     pointsText.setString("Points: 0");
@@ -265,9 +264,23 @@ generateText(sf::Text &pointsText, sf::Text &startGameText, std::vector<sf::Text
 }
 
 // all difficulty settings
-void setDifficultyEasy(std::vector<std::vector<GridCell>> &grid, std::vector<std::vector<sf::Text>> &gridText,
-                       const sf::Font &font) {
-    BOMBNUMBER = 10, BOARDSIZE = 9;
+void setDifficulty(std::vector<std::vector<GridCell>> &grid, std::vector<std::vector<sf::Text>> &gridText,
+                       const sf::Font &font, char difficultySet) {
+    // based on which character, set bomb number and board size
+    switch (difficultySet) {
+        case 'e':
+            BOMBNUMBER = 10, BOARDSIZE = 9;
+            break;
+        case 'm':
+            BOMBNUMBER = 40, BOARDSIZE = 16;
+            break;
+        case 'h':
+            BOMBNUMBER = 99, BOARDSIZE = 24;
+            break;
+        default:
+            BOMBNUMBER = 10, BOARDSIZE = 9;
+            break;
+    }
 
     grid.clear();
     gridText.clear();
@@ -277,7 +290,9 @@ void setDifficultyEasy(std::vector<std::vector<GridCell>> &grid, std::vector<std
     int gridHeight = BOARDSIZE * GRIDSIZE;
     // Calculate the starting position to center the grid
     int startX = (1920 - gridWidth) / 2;
-    int startY = (1080 - gridHeight) / 2;
+    // if the difficulty is hard, set startY to 0, because the grid is too big on hard diff,
+    // the y-axis doesn't need to be in the middle
+    int startY = (difficultySet != 'h') ? (1080 - gridHeight) / 2 : 0;
 
     std::vector<std::vector<GridCell>> tempGrid(BOARDSIZE, std::vector<GridCell>());
     for (int i = 0; i < BOARDSIZE; i++) {
@@ -286,6 +301,7 @@ void setDifficultyEasy(std::vector<std::vector<GridCell>> &grid, std::vector<std
             tempGrid[i].push_back(cell);
         }
     }
+    // set grid to be the same as tempGrid
     grid = tempGrid;
 
     sf::Text temp;
@@ -301,95 +317,6 @@ void setDifficultyEasy(std::vector<std::vector<GridCell>> &grid, std::vector<std
         for (int j = 0; j < BOARDSIZE; j++) {
             textX = startX + i * GRIDSIZE + (GRIDSIZE - temp.getLocalBounds().width) / 2.37f;
             textY = startY + j * GRIDSIZE + (GRIDSIZE - temp.getLocalBounds().height) / 2.7f;
-            // set position of text to be in center of cell
-            temp.setPosition(textX, textY);
-            tempText[i].push_back(temp);
-        }
-    }
-    gridText = tempText;
-
-    generateBombs(grid, gridText);
-    generateNumbers(grid, gridText);
-}
-
-void setDifficultyMedium(std::vector<std::vector<GridCell>> &grid, std::vector<std::vector<sf::Text>> &gridText,
-                         const sf::Font &font) {
-    BOMBNUMBER = 40, BOARDSIZE = 16;
-
-    grid.clear();
-    gridText.clear();
-
-    int gridWidth = BOARDSIZE * GRIDSIZE;
-    int gridHeight = BOARDSIZE * GRIDSIZE;
-    int startX = (1920 - gridWidth) / 2;
-    int startY = (1080 - gridHeight) / 2;
-
-    std::vector<std::vector<GridCell>> tempGrid(BOARDSIZE, std::vector<GridCell>());
-    for (int i = 0; i < BOARDSIZE; i++) {
-        for (int j = 0; j < BOARDSIZE; j++) {
-            GridCell cell(startX + i * GRIDSIZE, startY + j * GRIDSIZE);
-            tempGrid[i].push_back(cell);
-        }
-    }
-    grid = tempGrid;
-
-    sf::Text temp;
-    temp.setFont(font);
-    temp.setString("");
-    temp.setCharacterSize(12);
-    temp.setFillColor(sf::Color::Magenta);
-
-    float textX = 0;
-    float textY = 0;
-    std::vector<std::vector<sf::Text>> tempText(BOARDSIZE, std::vector<sf::Text>());
-    for (int i = 0; i < BOARDSIZE; i++) {
-        for (int j = 0; j < BOARDSIZE; j++) {
-            textX = startX + i * GRIDSIZE + (GRIDSIZE - temp.getLocalBounds().width) / 2.37f;
-            textY = startY + j * GRIDSIZE + (GRIDSIZE - temp.getLocalBounds().height) / 2.7f;
-            // set position of text to be in center of cell
-            temp.setPosition(textX, textY);
-            tempText[i].push_back(temp);
-        }
-    }
-    gridText = tempText;
-
-    generateBombs(grid, gridText);
-    generateNumbers(grid, gridText);
-}
-
-void setDifficultyHard(std::vector<std::vector<GridCell>> &grid, std::vector<std::vector<sf::Text>> &gridText,
-                       const sf::Font &font) {
-    BOMBNUMBER = 99, BOARDSIZE = 24;
-
-    grid.clear();
-    gridText.clear();
-
-    // doesn't need startY, because the grid gets too big and cannot fit in the window
-    int gridWidth = BOARDSIZE * GRIDSIZE;
-    int startX = (1920 - gridWidth) / 2;
-
-    std::vector<std::vector<GridCell>> tempGrid(BOARDSIZE, std::vector<GridCell>());
-    for (int i = 0; i < BOARDSIZE; i++) {
-        for (int j = 0; j < BOARDSIZE; j++) {
-            GridCell cell(startX + i * GRIDSIZE, j * GRIDSIZE);
-            tempGrid[i].push_back(cell);
-        }
-    }
-    grid = tempGrid;
-
-    sf::Text temp;
-    temp.setFont(font);
-    temp.setString("");
-    temp.setCharacterSize(12);
-    temp.setFillColor(sf::Color::Magenta);
-
-    float textX = 0;
-    float textY = 0;
-    std::vector<std::vector<sf::Text>> tempText(BOARDSIZE, std::vector<sf::Text>());
-    for (int i = 0; i < BOARDSIZE; i++) {
-        for (int j = 0; j < BOARDSIZE; j++) {
-            textX = startX + i * GRIDSIZE + (GRIDSIZE - temp.getLocalBounds().width) / 2.37f;
-            textY = j * GRIDSIZE + (GRIDSIZE - temp.getLocalBounds().height) / 2.7f;
             // set position of text to be in center of cell
             temp.setPosition(textX, textY);
             tempText[i].push_back(temp);
@@ -422,7 +349,7 @@ int main() {
     generateText(pointsText, startGameText, difficultyText, quitText, font);
 
     // Set easy diff for first start
-    setDifficultyEasy(grid, gridText, font);
+    setDifficulty(grid, gridText, font, 'e');
 
     // boolean for starting game
     bool gameStart = false;
@@ -451,13 +378,13 @@ int main() {
                         // setting difficulty easy, medium, hard
                     else if (difficultyText[0].getGlobalBounds().contains(gameEvent.mouseButton.x,
                                                                           gameEvent.mouseButton.y)) {
-                        setDifficultyEasy(grid, gridText, font);
+                        setDifficulty(grid, gridText, font, 'e');
                     } else if (difficultyText[1].getGlobalBounds().contains(gameEvent.mouseButton.x,
                                                                             gameEvent.mouseButton.y)) {
-                        setDifficultyMedium(grid, gridText, font);
+                        setDifficulty(grid, gridText, font, 'm');
                     } else if (difficultyText[2].getGlobalBounds().contains(gameEvent.mouseButton.x,
                                                                             gameEvent.mouseButton.y)) {
-                        setDifficultyHard(grid, gridText, font);
+                        setDifficulty(grid, gridText, font, 'h');
                     }
                 }
             }
