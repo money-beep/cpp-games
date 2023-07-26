@@ -29,6 +29,8 @@ void testCollisionPlayerPlatform(Platform &platform, Ball &ball) {
     }
 }
 
+std::vector<int>  ahah;
+
 void testCollisionBricks(Blocks &block, Ball &ball) {
     if (!isColliding(block, ball)) {
         return;
