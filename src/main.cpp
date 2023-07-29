@@ -22,6 +22,8 @@ void testCollisionAppleSnake(sf::Vector2i snakeHead, std::vector<SnakeBody> &sna
         // Adding a part to snake's body
         sf::Vector2i positionPart = snakeBody[snakeBody.size()-1].getGridPosition();
         sf::Vector2i directionPart = snakeBody[snakeBody.size()-1].getDirection();
+        // Add to the opposite direction of where the last part was supposed to move
+        // so that the added part can be placed behind it.
         positionPart -= directionPart;
         SnakeBody tempSnakePart(positionPart.x, positionPart.y, directionPart);
         snakeBody.push_back(tempSnakePart);
@@ -37,8 +39,12 @@ void updateSnakeBodyPosition(std::vector<sf::Vector2i> &snakeBodyPartPosition, s
     sf::Vector2i tempDirection;
     for (int i = 0; i < snakeBodyPartPosition.size(); ++i) {
         if(i == 0 || i % 2 == 0) {
+            // get direction of where body part needs to go
             tempDirection = snakeBody[i].getDirection();
+            // add the direction (+1 or -1 in some direction) because the vector is (x, y) and the direction can only
+            // have one VALUE in either x or y
             snakeBodyPartPosition[i] += snakeBody[i].getDirection();
+            // setting the position
             snakeBody[i].setDirection(lastMoveDirection);
         } else {
             lastMoveDirection = snakeBody[i].getDirection();
