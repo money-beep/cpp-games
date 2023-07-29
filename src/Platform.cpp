@@ -1,46 +1,42 @@
 #include "Platform.hpp"
 
-sf::Vector2f Platform::getPosition() {
-    return rectangle.getPosition();
+sf::RectangleShape Platform::getShape() const{
+    return shape;
 }
 
-sf::Vector2f Platform::getSize() {
-    return rectangle.getSize();
+float Platform::getHeight() const {
+    return shape.getSize().y;
 }
 
-sf::RectangleShape Platform::getShape() {
-    return rectangle;
+float Platform::getX() const {
+    return shape.getPosition().x;
 }
 
-float Platform::getX() {
-    return rectangle.getPosition().x;
-}
-
-float Platform::getY() {
-    return rectangle.getPosition().y;
+float Platform::getY() const{
+    return shape.getPosition().y;
 }
 
 float Platform::maxLeft() {
-    return getX() - (rectangle.getSize().x / 2.f);
+    return getX() - (shape.getSize().x / 2.f);
 }
 
 float Platform::maxRight() {
-    return getX() + (rectangle.getSize().x / 2.f);
+    return getX() + (shape.getSize().x / 2.f);
 }
 
 float Platform::maxTop() {
-    return getY() - rectangle.getSize().y / 2.f;
+    return getY() - shape.getSize().y / 2.f;
 }
 
 float Platform::maxBottom() {
-    return getY() + rectangle.getSize().y / 2.f;
+    return getY() + shape.getSize().y / 2.f;
 }
 
 void Platform::update() {
-    rectangle.move(velocity);
-    if( sf::Keyboard::isKeyPressed(sf::Keyboard::A) && maxLeft() > 0){
-        velocity.x = -PLATFORMVELOCITY;
-    }else if( sf::Keyboard::isKeyPressed(sf::Keyboard::D) && maxRight() < 800){
-        velocity.x = PLATFORMVELOCITY;
-    } else velocity.x = 0;
+    shape.move(velocity);
+    if( sf::Keyboard::isKeyPressed(bindUp) && getY() > 0){
+        velocity.y = -PLATFORMVELOCITY;
+    }else if( sf::Keyboard::isKeyPressed(bindDown) && getY() < 900){
+        velocity.y = PLATFORMVELOCITY;
+    } else velocity.y = 0;
 }

@@ -1,10 +1,78 @@
 #include "iostream"
+#include "string"
 #include <SFML/Graphics.hpp>
 #include "Ball.hpp"
 #include "Platform.hpp"
-#include "Blocks.hpp"
 
-constexpr int WIDTHWINDOW = 800, HEIGHTWINDOW = 600;
+constexpr int WIDTHWINDOW = 1480, HEIGHTWINDOW = 900;
+
+void makePointText(sf::Text &playerOnePoints, sf::Text &playerTwoPoints, sf::Font &font){
+    playerOnePoints.setFont(font);
+    playerOnePoints.setString("0");
+    playerOnePoints.setCharacterSize(100);
+    playerOnePoints.setFillColor(sf::Color::White);
+    playerOnePoints.setPosition(650, 50);
+
+    playerTwoPoints.setFont(font);
+    playerTwoPoints.setString("0");
+    playerTwoPoints.setCharacterSize(100);
+    playerTwoPoints.setFillColor(sf::Color::White);
+    playerTwoPoints.setPosition(780, 50);
+}
+
+void checkForGoal(Ball &bounceBall, sf::Text &playerOnePoints, sf::Text &playerTwoPoints){
+    // from sf::Text to string
+    std::string playerOneString = playerOnePoints.getString();
+    std::string playerTwoString = playerTwoPoints.getString();
+
+    // from string to int
+    int playerOneIntPoints = std::stoi( playerOneString);
+    int playerTwoIntPoints = std::stoi(playerTwoString);
+
+    if(bounceBall.getX() > 1480){
+        playerOneIntPoints++;
+        bounceBall.setX(WIDTHWINDOW/2);
+    }
+    if(bounceBall.getX() < 0){
+        playerTwoIntPoints++;
+        bounceBall.setX(WIDTHWINDOW/2);
+    }
+
+    playerOnePoints.setString(std::to_string(playerOneIntPoints));
+    playerTwoPoints.setString(std::to_string(playerTwoIntPoints));
+}
+
+
+void drawObjects(sf::RenderWindow &window, const Platform &platformLeft, const Platform &platformRight, const Ball &bounceBall, const std::vector<sf::RectangleShape> &squareLine, const sf::Text &playerOne, const sf::Text &playerTwo){
+    window.draw(platformLeft.getShape());
+    window.draw(platformRight.getShape());
+    window.draw(bounceBall.getShape());
+    window.draw(playerOne);
+    window.draw(playerTwo);
+    for (const auto &square : squareLine) {
+        window.draw(square);
+    }
+    window.display();
+}
+
+std::vector<sf::RectangleShape> makeSquares(){
+    std::vector<sf::RectangleShape> tempVector;
+
+    int squareSize = 15;
+    int numSquares = 25;
+    int verticalSpacing = (HEIGHTWINDOW - numSquares * squareSize) / (numSquares + 1);
+
+    int x = (WIDTHWINDOW - squareSize) / 2, y = 0;
+    for(int i = 0; i < numSquares; i++){
+        y = verticalSpacing * (i + 1) + squareSize * i;
+        sf::RectangleShape square(sf::Vector2f(squareSize, squareSize));
+        square.setPosition(x, y);
+        square.setFillColor(sf::Color::White);
+        tempVector.push_back(square);
+    }
+
+    return tempVector;
+}
 
 template<class T1, class T2>
 bool isColliding(T1 &shapeA, T2 &shapeB) {
@@ -16,153 +84,59 @@ void testCollisionPlayerPlatform(Platform &platform, Ball &ball) {
     if (!isColliding(platform, ball)) {
         return;
     }
-    ball.bounceBall();
-    if (ball.getX() < platform.getX()) {
-        ball.setXVelocity(true);
+
+    float platformAreaOfImpact = (ball.getY() - platform.getY()) / platform.getHeight();
+    std::cout << "AREA OF IMPACT: " << platformAreaOfImpact << "\n";
+
+    if(platformAreaOfImpact < -0.1f){
+        ball.bounceDiagonally(true);
+    } else if (platformAreaOfImpact > 0.1f){
+        ball.bounceDiagonally(false);
     } else {
-        ball.setXVelocity(false);
-    }
-    if (ball.getY() < platform.getY()) {
-        ball.setYVelocity(true);
-    } else {
-        ball.setYVelocity(false);
+        ball.bounceHorizontally();
     }
 }
 
-std::vector<int>  ahah;
+void testAndUpdateObjects(Platform &platformLeft, Platform &platformRight, Ball &bounceBall, sf::Text &playerOnePoints, sf::Text &playerTwoPoints){
+    testCollisionPlayerPlatform(platformLeft, bounceBall);
+    testCollisionPlayerPlatform(platformRight, bounceBall);
+    checkForGoal(bounceBall, playerOnePoints, playerTwoPoints);
 
-void testCollisionBricks(Blocks &block, Ball &ball) {
-    if (!isColliding(block, ball)) {
-        return;
-    }
-    ball.bounceBall();
-    block.setDestroyed();
-    if (ball.getX() < block.getX()) {
-        ball.setXVelocity(true);
-    } else {
-        ball.setXVelocity(false);
-    }
-    if (ball.getY() < block.getY()) {
-        ball.setYVelocity(true);
-    } else {
-        ball.setYVelocity(false);
-    }
+    platformLeft.update();
+    platformRight.update();
+    bounceBall.update();
 }
 
 int main() {
-    auto window = sf::RenderWindow{{WIDTHWINDOW, HEIGHTWINDOW}, "Arkanoid-clone"};
+    auto window = sf::RenderWindow{{WIDTHWINDOW, HEIGHTWINDOW}, "Pong - clone"};
     window.setFramerateLimit(240);
     sf::Event gameEvent;
 
-    // Generate game objects (player platform, ball and blocks)
-    Ball balls(WIDTHWINDOW / 2, HEIGHTWINDOW / 2);
-    Platform platform(WIDTHWINDOW / 2 - 25, HEIGHTWINDOW / 2 + 100);
-
-    std::vector<Blocks> blocks;
-    float blockPositionDifferenceX = 80;
-    float blockPositionDifferenceY = 50;
-    for (int i = 0; i < 4; ++i) {
-        for (int j = 0; j < 3; ++j) {
-            blocks.emplace_back(blockPositionDifferenceX, blockPositionDifferenceY);
-            blockPositionDifferenceX += 80;
-        }
-        blockPositionDifferenceY += 40;
-        blockPositionDifferenceX = 80;
-    }
-    // boolean variable to save game state (if game has started or only in menu)
-    bool gameStarted = false;
-    // Generating starting menu
     sf::Font font;
     font.loadFromFile("C:\\Windows\\Fonts\\arial.ttf");
+    sf::Text playerOnePoints, playerTwoPoints;
+    makePointText(playerOnePoints, playerTwoPoints, font);
 
-    int points = 0;
-    sf::Text pointsText;
-    pointsText.setFont(font);
-    pointsText.setString("Points: 0");
-    pointsText.setScale(0.75f, 0.75f);
-    pointsText.setFillColor(sf::Color::White);
-    pointsText.setPosition(600, 0);
+    Platform platformLeft(25, HEIGHTWINDOW/2, sf::Keyboard::W, sf::Keyboard::S);
+    Platform platformRight(WIDTHWINDOW-25, HEIGHTWINDOW/2, sf::Keyboard::Up, sf::Keyboard::Down);
+    Ball bounceBall(WIDTHWINDOW/2, HEIGHTWINDOW/2);
 
-    sf::Text startGameText;
-    startGameText.setFont(font);
-    startGameText.setString("Start game");
-    startGameText.setScale(1.5f, 1.5f);
-    startGameText.setFillColor(sf::Color::White);
-    startGameText.setPosition(300, 100);
-
-    sf::Text quitText;
-    quitText.setFont(font);
-    quitText.setString("Quit.");
-    quitText.setScale(1.2f, 1.2f);
-    quitText.setFillColor(sf::Color::White);
-    quitText.setPosition(360, 250);
+    std::vector<sf::RectangleShape> squareLine;
+    squareLine = makeSquares();
 
     // Game loop - runs every frame
     while (window.isOpen()) {
-        while(!gameStarted){
-            // Clears window
-            window.clear(sf::Color::Black);
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+        window.clear();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+            window.close();
+        }
+        // check for events
+        while (window.pollEvent(gameEvent)) {  // if event is a key press
+            if (gameEvent.type == sf::Event::Closed) { // if event is window closed
                 window.close();
             }
-            // check for events
-            while (window.pollEvent(gameEvent)) {  // if event is a key press
-                if (gameEvent.type == sf::Event::Closed) { // if event is window closed
-                    window.close();
-                }
-                else if( gameEvent.mouseButton.button == sf::Mouse::Left){
-                    if(startGameText.getGlobalBounds().contains(gameEvent.mouseButton.x, gameEvent.mouseButton.y)){
-                        gameStarted = true;
-                    } else if(quitText.getGlobalBounds().contains(gameEvent.mouseButton.x, gameEvent.mouseButton.y)){
-                        window.close();
-                    }
-                }
-            }
-            window.draw(startGameText);
-            window.draw(quitText);
-            window.display();
         }
-
-        while(gameStarted) {
-            // Clears window
-            window.clear(sf::Color::Black);
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-                window.close();
-            }
-            // check for events
-            while (window.pollEvent(gameEvent)) {  // if event is a key press
-                if (gameEvent.type == sf::Event::Closed) { // if event is window closed
-                    window.close();
-                }
-            }
-            testCollisionPlayerPlatform(platform, balls);
-            for (auto &block: blocks) {
-                testCollisionBricks(block, balls);
-            }
-            balls.update();
-            platform.update();
-            window.draw(balls.getShape());
-            window.draw(platform.getShape());
-
-            blocks.erase(std::remove_if(blocks.begin(), blocks.end(), [&points](Blocks block) {
-                if(block.isDestroyed()){
-                    points += 10;
-                    return true;
-                }
-                return false;
-            }), blocks.end());
-
-            if(blocks.empty()){
-                gameStarted = false;
-            }
-
-            for (auto &block: blocks) {
-                window.draw(block.getShape());
-            }
-
-            pointsText.setString("Points: " + std::to_string(points));
-            window.draw(pointsText);
-            window.display(); // Draws to window
-        }
+        testAndUpdateObjects(platformLeft, platformRight, bounceBall, playerOnePoints, playerTwoPoints);
+        drawObjects(window, platformLeft, platformRight, bounceBall, squareLine, playerOnePoints, playerTwoPoints);
     }
 }

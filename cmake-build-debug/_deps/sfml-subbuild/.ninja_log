@@ -1,37 +1,37 @@
 # ninja log v5
 0	45	7110402524223217	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-mkdir	488abf9d9c696e9f
 0	45	7110402524223217	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-mkdir	488abf9d9c696e9f
-2326	2384	7111510804822595	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	e8493be3b5f8b22d
-0	2114	0	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	207290e5873a5c49
+2291	2348	7120726811994216	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	e8493be3b5f8b22d
+0	2086	0	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	207290e5873a5c49
 45	40690	7110402930681302	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-download	cadcb287297606b0
-0	2114	0	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	207290e5873a5c49
+0	2086	0	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	207290e5873a5c49
 45	40690	7110402930681302	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-download	cadcb287297606b0
-2115	2158	7111510802565355	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	519a9f5c1bfdc286
-2115	2158	7111510802565355	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	519a9f5c1bfdc286
-2158	2200	7111510802993767	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	648d466f03c70d5c
-2158	2200	7111510802993767	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	648d466f03c70d5c
-2201	2242	7111510803403286	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	127c736086c69fcd
-2201	2242	7111510803403286	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	127c736086c69fcd
-2242	2284	7111510803829410	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	64baaa32925737b0
-2242	2284	7111510803829410	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	64baaa32925737b0
-2284	2326	7111510804243422	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	8dff88bdd276ed76
-2284	2326	7111510804243422	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	8dff88bdd276ed76
-2326	2384	7111510804822595	CMakeFiles/sfml-populate-complete	e8493be3b5f8b22d
-2326	2384	7111510804822595	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/CMakeFiles/sfml-populate-complete	e8493be3b5f8b22d
-2326	2384	7111510804822595	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	e8493be3b5f8b22d
-0	3430	0	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	207290e5873a5c49
-0	3430	0	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	207290e5873a5c49
-3430	3474	7120715469349928	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	519a9f5c1bfdc286
-3430	3474	7120715469349928	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	519a9f5c1bfdc286
-3475	3518	7120715469788763	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	648d466f03c70d5c
-3475	3518	7120715469788763	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	648d466f03c70d5c
-3519	3562	7120715470227580	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	127c736086c69fcd
-3519	3562	7120715470227580	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	127c736086c69fcd
-3562	3609	7120715470696327	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	64baaa32925737b0
-3562	3609	7120715470696327	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	64baaa32925737b0
-3610	3656	7120715471165072	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	8dff88bdd276ed76
-3610	3656	7120715471165072	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	8dff88bdd276ed76
-3656	3717	7120715471773452	CMakeFiles/sfml-populate-complete	e8493be3b5f8b22d
-3656	3717	7120715471773452	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	e8493be3b5f8b22d
-3656	3717	7120715471773452	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/CMakeFiles/sfml-populate-complete	e8493be3b5f8b22d
-3656	3717	7120715471773452	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	e8493be3b5f8b22d
+2086	2127	7120726809790365	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	519a9f5c1bfdc286
+2086	2127	7120726809790365	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	519a9f5c1bfdc286
+2127	2168	7120726810197285	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	648d466f03c70d5c
+2127	2168	7120726810197285	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	648d466f03c70d5c
+2168	2208	7120726810596221	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	127c736086c69fcd
+2168	2208	7120726810596221	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	127c736086c69fcd
+2208	2250	7120726811011797	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	64baaa32925737b0
+2208	2250	7120726811011797	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	64baaa32925737b0
+2250	2291	7120726811430307	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	8dff88bdd276ed76
+2250	2291	7120726811430307	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	8dff88bdd276ed76
+2291	2348	7120726811994216	CMakeFiles/sfml-populate-complete	e8493be3b5f8b22d
+2291	2348	7120726811994216	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/CMakeFiles/sfml-populate-complete	e8493be3b5f8b22d
+2291	2348	7120726811994216	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	e8493be3b5f8b22d
+0	2038	0	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	207290e5873a5c49
+0	2038	0	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	207290e5873a5c49
+2038	2079	7120726859951328	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	519a9f5c1bfdc286
+2038	2079	7120726859951328	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	519a9f5c1bfdc286
+2079	2120	7120726860360232	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	648d466f03c70d5c
+2079	2120	7120726860360232	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	648d466f03c70d5c
+2120	2162	7120726860779110	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	127c736086c69fcd
+2120	2162	7120726860779110	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	127c736086c69fcd
+2163	2209	7120726861237926	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	64baaa32925737b0
+2163	2209	7120726861237926	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	64baaa32925737b0
+2209	2257	7120726861716643	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	8dff88bdd276ed76
+2209	2257	7120726861716643	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	8dff88bdd276ed76
+2257	2323	7120726862381828	CMakeFiles/sfml-populate-complete	e8493be3b5f8b22d
+2257	2323	7120726862381828	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	e8493be3b5f8b22d
+2257	2323	7120726862381828	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/CMakeFiles/sfml-populate-complete	e8493be3b5f8b22d
+2257	2323	7120726862381828	C:/Users/Skorteyy/Desktop/Mape/CLION C++ projekti/sfml-template/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	e8493be3b5f8b22d

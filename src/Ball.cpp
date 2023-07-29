@@ -1,23 +1,18 @@
 #include "Ball.hpp"
 
-sf::Vector2f Ball::getPosition() {
-    return shape.getPosition();
+void Ball::setX(float mX) {
+    shape.setPosition(mX, getY());
 }
 
-float Ball::getRadius() {
-    return shape.getRadius();
-}
-
-sf::CircleShape Ball::getShape() {
+sf::CircleShape Ball::getShape() const{
     return shape;
 }
 
-
-float Ball::getX() {
+float Ball::getX() const {
     return shape.getPosition().x;
 }
 
-float Ball::getY() {
+float Ball::getY() const{
     return shape.getPosition().y;
 }
 
@@ -39,26 +34,23 @@ float Ball::maxBottom() {
 
 void Ball::update() {
     shape.move(velocity);
-    if (maxLeft() < 0) {
-        velocity.x = BALLVELOCITY;
-    } else if (maxRight() > 800) {
-        velocity.x = -BALLVELOCITY;
-    }
-    if (maxTop() < 0) {
+    if(getY() <= 0){
         velocity.y = BALLVELOCITY;
-    } else if (maxBottom() > 600) {
+    } else if(getY() >= 895){
         velocity.y = -BALLVELOCITY;
     }
 }
 
-void Ball::bounceBall() {
-    velocity.y = -BALLVELOCITY;
+void Ball::bounceHorizontally() {
+    velocity.y = 0;
+    velocity.x = (velocity.x > 0) ? -BALLVELOCITY : BALLVELOCITY;
 }
 
-void Ball::setXVelocity(bool position) {
-    velocity.x = (position) ? -BALLVELOCITY : BALLVELOCITY;
-}
-
-void Ball::setYVelocity(bool position) {
-    velocity.y = (position) ? -BALLVELOCITY : BALLVELOCITY;
+void Ball::bounceDiagonally(bool direction) {
+    if(direction){
+        velocity.y = -BALLVELOCITY;
+    } else {
+        velocity.y = BALLVELOCITY;
+    }
+    velocity.x = (velocity.x > 0) ? -BALLVELOCITY : BALLVELOCITY;
 }
