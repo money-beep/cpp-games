@@ -2,7 +2,7 @@
 #define SFML_TEMPLATE_PLATFORM_HPP
 #include <SFML/Graphics.hpp>
 
-constexpr int PLATFORMWIDTH = 50, PLATFORMHEIGHT = 10;
+constexpr int PLATFORMWIDTH = 70, PLATFORMHEIGHT = 10;
 constexpr float PLATFORMVELOCITY = 2.f;
 
 class Platform {
